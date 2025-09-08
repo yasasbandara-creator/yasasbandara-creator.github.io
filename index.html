@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yasas Bandara</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     /* Reset */
 * {
@@ -19,8 +18,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background: black; /* Matrix effect looks best on black */
   overflow: hidden;
+  position: relative;
+}
+
+/* Matrix Canvas */
+#matrixCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
 }
 
 /* Center Wrapper */
@@ -29,15 +40,17 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
+  position: relative;
+  z-index: 2; /* keep card above matrix */
 }
 
 /* Modern Card */
 .login-card {
   text-align: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   padding: 50px 40px;
   border-radius: 25px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.7);
   backdrop-filter: blur(12px);
   animation: fadeIn 1.2s ease;
 }
@@ -70,55 +83,20 @@ p {
   font-size: 1rem;
 }
 
-/* Modern Button */
+/* Button */
 button {
-  background: linear-gradient(135deg, #4cafef, #2196f3);
+  background: linear-gradient(135deg, #4cafef, #15ce0f);
   border: none;
   color: white;
-  padding: 14px 32px;
-  border-radius: 50px;
+  padding: 14px 30px;
+  border-radius: 30px;
   font-size: 1.1rem;
-  font-family: 'Poppins', sans-serif;
   cursor: pointer;
-  transition: all 0.35s ease;
-  letter-spacing: 0.5px;
-  box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
-  position: relative;
-  overflow: hidden;
+  transition: all 0.3s ease;
 }
-
-/* Hover Effect */
-button:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 12px 30px rgba(33, 150, 243, 0.6);
-}
-
-/* Click Effect */
-button:active {
-  transform: scale(0.97);
-}
-
-/* Optional: Glow Animation */
-button::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.3) 10%, transparent 10.01%);
-  background-size: 20px 20px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-button:hover::before {
-  opacity: 0.15;
-}
-
 
 button:hover {
-  background: linear-gradient(135deg, #5db9ff, #1e88e5);
+  background: linear-gradient(135deg, #5dff60, #0c8c17);
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0,0,0,0.3);
 }
@@ -128,10 +106,12 @@ button:hover {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
-
   </style>
 </head>
 <body>
+  <!-- Matrix Background -->
+  <canvas id="matrixCanvas"></canvas>
+
   <div class="wrapper">
     <div class="login-card">
       <div class="profile-pic">
@@ -148,9 +128,54 @@ button:hover {
       // Redirect to your main website page
       window.location.href = "Profile.html"; 
     }
+
+    // Matrix Effect
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const letters = "アァイィウヴエェオカガキギクケゲコゴサザシジスズセゼソゾタダチッヂヅテデトドナニヌネノハバパヒフヘベホポマミムメモヤユヨラリルレロワン0123456789";
+    const lettersArray = letters.split("");
+
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+
+    const drops = [];
+    for (let x = 0; x < columns; x++) {
+      drops[x] = 1;
+    }
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#0F0"; // green text
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = lettersArray[Math.floor(Math.random() * lettersArray.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 50);
+
+    // Resize handling
+    window.addEventListener("resize", () => {
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+    });
   </script>
 </body>
 </html>
+
 
 
 

@@ -183,6 +183,27 @@
 .skill-progress {
     background: linear-gradient(135deg, #22c55e, #ef4444);
 }
+/* Music toggle button */
+#music-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+    cursor: pointer;
+    color: white;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+#music-toggle:hover {
+    transform: scale(1.1);
+}
 
     </style>
 </head>
@@ -555,8 +576,18 @@
             <p class="text-sm text-blue-100">© 2025 — All Rights Reserved.This CV was created on <?php echo date('F Y'); ?> | Yasas Bandara</p>
         </div>
     </div>
+
+    <audio id="jingle" loop>
+    <source src="https://cdn.pixabay.com/audio/2021/12/01/audio_eecc4c3db8.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <button id="music-toggle" title="Toggle Christmas Music">
+    🔇
+    </button>
+
     <script>
-(function () {
+    (function () {
     const today = new Date();
     const month = today.getMonth(); // 0 = Jan, 11 = Dec
     const date = today.getDate();
@@ -592,6 +623,32 @@
     }
 
     setInterval(createSnowflake, 250);
+})();
+</script>
+<script>
+(function () {
+    const today = new Date();
+    const month = today.getMonth(); // Dec = 11
+    const date = today.getDate();
+    const isChristmas = (month === 11 && date <= 25);
+
+    if (!isChristmas) return;
+
+    const audio = document.getElementById("jingle");
+    const btn = document.getElementById("music-toggle");
+    let playing = false;
+
+    btn.addEventListener("click", () => {
+        if (!playing) {
+            audio.volume = 0.4;
+            audio.play();
+            btn.textContent = "🔊";
+        } else {
+            audio.pause();
+            btn.textContent = "🔇";
+        }
+        playing = !playing;
+    });
 })();
 </script>
 

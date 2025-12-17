@@ -18,21 +18,16 @@
             font-family: 'Poppins', sans-serif;
         }
         .gradient-bg {
-            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
         }
         .section-title {
             position: relative;
             padding-bottom: 8px;
         }
         .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #22c55e, #ef4444);
         }
+
         .skill-bar {
             background: #e2e8f0;
             border-radius: 10px;
@@ -44,9 +39,9 @@
             border-radius: 10px;
             transition: width 0.3s ease;
         }
-        .education-card, .course-card {
-            border-left: 4px solid #667eea;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        .education-card,.course-card {
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.05),
+                0 10px 25px rgba(0,0,0,0.4);
         }
         .education-card:hover, .course-card:hover {
             transform: translateY(-2px);
@@ -105,10 +100,96 @@
         .social-links a.linkedin:hover { background: rgba(10, 102, 194, 0.2); }
         .social-links a.github:hover { background: rgba(51, 51, 51, 0.2); }
         }
+        /* Snow Animation */
+        #snow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #ffffff;
+            opacity: 0.9;
+            text-shadow: 0 0 8px rgba(255,255,255,0.8);
+            user-select: none;
+            animation: fall linear infinite;
+        }
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+       }
+        /* Dark mode text fixes */
+        body {
+        color: #e5e7eb;
+        }
+
+.bg-white,
+.bg-gray-50 {
+    background-color: #1f2937 !important;
+}
+
+.text-gray-600,
+.text-gray-700,
+.text-gray-800 {
+    color: #e5e7eb !important;
+}
+
+.border-gray-200 {
+    border-color: #374151 !important;
+}
+/* ===== DARK MODE CARD FIX (IMPORTANT) ===== */
+
+/* Fix light cards */
+.bg-white,
+.bg-gray-50,
+.bg-blue-50,
+.bg-green-50,
+.bg-purple-50,
+.bg-orange-50 {
+    background-color: #1f2937 !important; /* gray-800 */
+}
+
+/* Fix text inside cards */
+.text-gray-600,
+.text-gray-700,
+.text-gray-800 {
+    color: #e5e7eb !important; /* gray-200 */
+}
+
+/* Fix muted text */
+.text-sm.text-gray-600 {
+    color: #d1d5db !important; /* gray-300 */
+}
+
+/* Fix borders */
+.border-l-4 {
+    border-color: #22c55e !important; /* Christmas green */
+}
+
+/* Fix skill bars */
+.skill-bar {
+    background-color: #374151 !important;
+}
+
+/* Progress color still visible */
+.skill-progress {
+    background: linear-gradient(135deg, #22c55e, #ef4444);
+}
+
     </style>
 </head>
-<body class="bg-gray-50">
-    <div class="max-w-4xl mx-auto bg-white shadow-2xl">
+<body class="bg-gray-900 text-gray-200">
+    <div id="snow"></div>
+    <div class="max-w-4xl mx-auto bg-gray-800 bg-opacity-90 backdrop-blur-xl shadow-2xl rounded-xl">
+
         <!-- Header Section -->
         <div class="gradient-bg text-white p-8">
             <div class="flex flex-col md:flex-row items-center justify-between">
@@ -196,6 +277,45 @@
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">Ordinary Level Examination - 2021(2022)</h3>
                     <div class="text-gray-600 font-medium mb-2">Vidyawardana Maha Vidyalaya, Palawatta</div>
                     <div class="text-gray-600 text-sm mb-4">January 2011 - May 2022</div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="text-center p-2 bg-gray-50 rounded">
+                            <div class="text-sm text-gray-600">Sinhala</div>
+                            <div class="text-lg font-bold text-green-600">B</div>
+                        </div>
+                        <div class="text-center p-2 bg-gray-50 rounded">
+                            <div class="text-sm text-gray-600">English</div>
+                            <div class="text-lg font-bold text-green-600">B</div>
+                        </div>
+                        <div class="text-center p-2 bg-gray-50 rounded">
+                            <div class="text-sm text-gray-600">Mathematics</div>
+                            <div class="text-lg font-bold text-blue-600">C</div>
+                        </div>
+                        <div class="text-center p-2 bg-gray-50 rounded">
+                            <div class="text-sm text-gray-600">Buddhism</div>
+                            <div class="text-lg font-bold text-green-600">B</div>
+                        </div>
+                        <div class="text-center p-2 bg-gray-50 rounded">
+                            <div class="text-sm text-gray-600">Science</div>
+                            <div class="text-lg font-bold text-green-600">B</div>
+                        </div>
+                        <div class="text-center p-2 bg-gray-50 rounded">
+                            <div class="text-sm text-gray-600">History</div>
+                            <div class="text-lg font-bold text-blue-600">C</div>
+                        </div>
+                        <div class="text-center p-2 bg-gray-50 rounded">
+                            <div class="text-sm text-gray-600">Information Technology</div>
+                            <div class="text-lg font-bold text-green-600">B</div>
+                        </div>
+                        <div class="text-center p-2 bg-gray-50 rounded">
+                            <div class="text-sm text-gray-600">Commerce & Business</div>
+                            <div class="text-lg font-bold text-blue-600">C</div>
+                        </div>
+                        <div class="text-center p-2 bg-gray-50 rounded">
+                            <div class="text-sm text-gray-600">Art</div>
+                            <div class="text-lg font-bold text-blue-600">C</div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -357,14 +477,14 @@
                                 <i class="fas fa-language mr-2 text-blue-500"></i>
                                 <span class="font-medium text-gray-800">Sinhala</span>
                             </div>
-                            <span class="text-sm text-gray-600 bg-green-100 px-2 py-1 rounded">Native</span>
+                            <span class="text-sm text-green-300 bg-green-900 px-2 py-1 rounded">Native</span>
                         </div>
                         <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
                             <div class="flex items-center">
                                 <i class="fas fa-language mr-2 text-blue-500"></i>
                                 <span class="font-medium text-gray-800">English</span>
                             </div>
-                            <span class="text-sm text-gray-600 bg-blue-100 px-2 py-1 rounded">Proficient</span>
+                            <span class="text-sm text-blue-300 bg-blue-900 px-2 py-1 rounded">Proficient</span>
                         </div>
                     </div>
                 </section>
@@ -435,10 +555,48 @@
             <p class="text-sm text-blue-100">© 2025 — All Rights Reserved.This CV was created on <?php echo date('F Y'); ?> | Yasas Bandara</p>
         </div>
     </div>
+    <script>
+(function () {
+    const today = new Date();
+    const month = today.getMonth(); // 0 = Jan, 11 = Dec
+    const date = today.getDate();
+
+    // Christmas period: Dec 1 - Dec 25
+    const isChristmas = (month === 11 && date <= 25);
+
+    if (!isChristmas) {
+        // Disable snow & Santa after Christmas
+        const snow = document.getElementById("snow");
+        const santa = document.getElementById("santa-sleigh");
+        if (snow) snow.remove();
+        if (santa) santa.remove();
+        return;
+    }
+
+    // ❄ Snow Logic
+    const snowContainer = document.getElementById("snow");
+
+    function createSnowflake() {
+        const snowflake = document.createElement("div");
+        snowflake.className = "snowflake";
+        snowflake.innerHTML = "❄";
+
+        snowflake.style.left = Math.random() * window.innerWidth + "px";
+        snowflake.style.animationDuration = (3 + Math.random() * 5) + "s";
+        snowflake.style.opacity = Math.random();
+        snowflake.style.fontSize = (8 + Math.random() * 16) + "px";
+
+        snowContainer.appendChild(snowflake);
+
+        setTimeout(() => snowflake.remove(), 8000);
+    }
+
+    setInterval(createSnowflake, 250);
+})();
+</script>
+
 </body>
 </html>
-
-
 
 
 

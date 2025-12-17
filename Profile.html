@@ -298,45 +298,6 @@
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">Ordinary Level Examination - 2021(2022)</h3>
                     <div class="text-gray-600 font-medium mb-2">Vidyawardana Maha Vidyalaya, Palawatta</div>
                     <div class="text-gray-600 text-sm mb-4">January 2011 - May 2022</div>
-                    
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <div class="text-center p-2 bg-gray-50 rounded">
-                            <div class="text-sm text-gray-600">Sinhala</div>
-                            <div class="text-lg font-bold text-green-600">B</div>
-                        </div>
-                        <div class="text-center p-2 bg-gray-50 rounded">
-                            <div class="text-sm text-gray-600">English</div>
-                            <div class="text-lg font-bold text-green-600">B</div>
-                        </div>
-                        <div class="text-center p-2 bg-gray-50 rounded">
-                            <div class="text-sm text-gray-600">Mathematics</div>
-                            <div class="text-lg font-bold text-blue-600">C</div>
-                        </div>
-                        <div class="text-center p-2 bg-gray-50 rounded">
-                            <div class="text-sm text-gray-600">Buddhism</div>
-                            <div class="text-lg font-bold text-green-600">B</div>
-                        </div>
-                        <div class="text-center p-2 bg-gray-50 rounded">
-                            <div class="text-sm text-gray-600">Science</div>
-                            <div class="text-lg font-bold text-green-600">B</div>
-                        </div>
-                        <div class="text-center p-2 bg-gray-50 rounded">
-                            <div class="text-sm text-gray-600">History</div>
-                            <div class="text-lg font-bold text-blue-600">C</div>
-                        </div>
-                        <div class="text-center p-2 bg-gray-50 rounded">
-                            <div class="text-sm text-gray-600">Information Technology</div>
-                            <div class="text-lg font-bold text-green-600">B</div>
-                        </div>
-                        <div class="text-center p-2 bg-gray-50 rounded">
-                            <div class="text-sm text-gray-600">Commerce & Business</div>
-                            <div class="text-lg font-bold text-blue-600">C</div>
-                        </div>
-                        <div class="text-center p-2 bg-gray-50 rounded">
-                            <div class="text-sm text-gray-600">Art</div>
-                            <div class="text-lg font-bold text-blue-600">C</div>
-                        </div>
-                    </div>
                 </div>
             </section>
 
@@ -578,8 +539,7 @@
     </div>
 
     <audio id="jingle" loop>
-    <source src="https://actions.google.com/sounds/v1/holiday/christmas_bells.ogg" type="audio/ogg">
-    Your browser does not support the audio element.
+    <source src="Carol Of The Bells  Christmas Music  Instrumental Version.mp3" type="audio/mpeg">
     </audio>
 
     <button id="music-toggle" title="Toggle Christmas Music">
@@ -638,9 +598,13 @@
     const btn = document.getElementById("music-toggle");
     let playing = false;
 
+    document.addEventListener("visibilitychange", () => {
+    if (document.hidden) audio.pause();
+    });
+
     btn.addEventListener("click", () => {
         if (!playing) {
-            audio.volume = 0.4;
+            audio.volume = 0.10;
             audio.play();
             btn.textContent = "🔊";
         } else {
@@ -654,7 +618,6 @@
 
 </body>
 </html>
-
 
 
 

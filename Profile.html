@@ -592,19 +592,24 @@
     const date = today.getDate();
     const isChristmas = (month === 11 && date <= 25);
 
-    if (!isChristmas) return;
-
     const audio = document.getElementById("jingle");
     const btn = document.getElementById("music-toggle");
+
+    // 👉 Hide button if not Christmas
+    if (!isChristmas) {
+        if (btn) btn.style.display = "none";
+        return;
+    }
+
     let playing = false;
 
     document.addEventListener("visibilitychange", () => {
-    if (document.hidden) audio.pause();
+        if (document.hidden) audio.pause();
     });
 
     btn.addEventListener("click", () => {
         if (!playing) {
-            audio.volume = 0.05;
+            audio.volume = 0.10;
             audio.play();
             btn.textContent = "🔊";
         } else {
@@ -618,6 +623,7 @@
 
 </body>
 </html>
+
 
 
 

@@ -609,6 +609,10 @@
             <form id="contactForm" action="https://formspree.io/f/maqnvrjv" method="POST">
             <h3>Contact Me</h3>
 
+            <!-- Honeypot (spam protection) -->
+            <input type="text" name="website" id="website"
+               style="display:none" tabindex="-1" autocomplete="off">
+
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
             <textarea name="message" placeholder="Your Message" required></textarea>
@@ -643,15 +647,34 @@ const successMsg = document.getElementById("successMsg");
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
+  // 🛑 Honeypot check
+  if (document.getElementById("website").value !== "") {
+    console.log("Spam blocked");
+    return;
+  }
+
   const name = form.querySelector('[name="name"]').value;
   const email = form.querySelector('[name="email"]').value;
   const message = form.querySelector('[name="message"]').value;
 
+  // 🌍 Get visitor IP & location
+  let ipInfo = {};
+  try {
+    const res = await fetch("https://ipapi.co/json/");
+    ipInfo = await res.json();
+  } catch (err) {
+    ipInfo = {};
+  }
+
   const text =
-    `📩 *New Contact Message*\n\n` +
+    `🚨 *New Website Message*\n\n` +
     `👤 *Name:* ${name}\n` +
     `📧 *Email:* ${email}\n` +
     `💬 *Message:* ${message}`;
+    `🌍 *Country:* ${ipInfo.country_name || "Unknown"}\n` +
+    `🏙️ *City:* ${ipInfo.city || "Unknown"}\n` +
+    `📡 *IP:* ${ipInfo.ip || "Hidden"}\n` +
+    `🏢 *ISP:* ${ipInfo.org || "Unknown"}`;
 
   fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
     method: "POST",
@@ -783,6 +806,7 @@ form.addEventListener("submit", function (e) {
 
 </body>
 </html>
+
 
 
 

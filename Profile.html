@@ -644,14 +644,11 @@ const form = document.getElementById("contactForm");
 const popup = document.getElementById("contactPopup");
 const successMsg = document.getElementById("successMsg");
 
-form.addEventListener("submit", function (e) {
+form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
-  // 🛑 Honeypot check
-  if (document.getElementById("website").value !== "") {
-    console.log("Spam blocked");
-    return;
-  }
+  // 🛡 Honeypot spam protection
+  if (document.getElementById("website").value !== "") return;
 
   const name = form.querySelector('[name="name"]').value;
   const email = form.querySelector('[name="email"]').value;
@@ -670,7 +667,7 @@ form.addEventListener("submit", function (e) {
     `🚨 *New Website Message*\n\n` +
     `👤 *Name:* ${name}\n` +
     `📧 *Email:* ${email}\n` +
-    `💬 *Message:* ${message}`;
+    `💬 *Message:* ${message}\n\n` +
     `🌍 *Country:* ${ipInfo.country_name || "Unknown"}\n` +
     `🏙️ *City:* ${ipInfo.city || "Unknown"}\n` +
     `📡 *IP:* ${ipInfo.ip || "Hidden"}\n` +
@@ -693,7 +690,7 @@ form.addEventListener("submit", function (e) {
       form.reset();
     }, 2000);
   })
-  .catch(() => alert("Message failed to send"));
+  .catch(() => alert("Telegram message failed"));
 });
 </script>
 
@@ -806,6 +803,7 @@ form.addEventListener("submit", function (e) {
 
 </body>
 </html>
+
 
 
 

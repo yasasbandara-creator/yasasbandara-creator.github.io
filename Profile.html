@@ -204,9 +204,87 @@
 #music-toggle:hover {
     transform: scale(1.1);
 }
+/* Floating Contact Button */
+#contactBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  z-index: 10000;
+}
 
+/* Popup Box */
+#contactPopup {
+  position: fixed;
+  bottom: 90px;
+  right: 25px;
+  width: 300px;
+  background: rgba(31, 41, 55, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  padding: 15px;
+  display: none;
+  z-index: 10000;
+}
+
+#contactPopup h3 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+#contactPopup input,
+#contactPopup textarea {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #374151;
+  color: white;
+  font-size: 14px;
+}
+
+#contactPopup textarea {
+  resize: none;
+  height: 80px;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.popup-actions button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.popup-actions .send {
+  background: #22c55e;
+  color: black;
+}
+
+.popup-actions .close {
+  background: #ef4444;
+  color: white;
+}
     </style>
 </head>
+    
 <body class="bg-gray-900 text-gray-200">
     <div id="snow"></div>
     <div class="max-w-4xl mx-auto bg-gray-800 bg-opacity-90 backdrop-blur-xl shadow-2xl rounded-xl">
@@ -522,6 +600,79 @@
                     </div>
                 </div>
             </section>
+            
+            <!-- Floating Contact Button -->
+            <button id="contactBtn">💬</button>
+
+            <!-- Contact Popup -->
+            <div id="contactPopup">
+            <form id="contactForm" action="https://formspree.io/f/maqnvrjv" method="POST">
+            <h3>Contact Me</h3>
+
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+
+    <div class="popup-actions">
+      <button type="submit" class="send">Send</button>
+      <button type="button" class="close" onclick="toggleContact()">Close</button>
+    </div>
+    <p id="successMsg" style="display:none; text-align:center; color:#22c55e; font-size:14px;">
+  ✅ Message sent successfully!
+</p>
+  </form>
+</div>
+            
+<script>
+function toggleContact() {
+  const popup = document.getElementById("contactPopup");
+  popup.style.display = popup.style.display === "block" ? "none" : "block";
+}
+
+document.getElementById("contactBtn").addEventListener("click", toggleContact);
+</script>
+
+<script>
+const TOKEN = "8544668628:AAFIttQUKrzs3QrbO25QSj1-dkbBM4fQpjI";
+const CHAT_ID = "1760551652";
+
+const form = document.getElementById("contactForm");
+const popup = document.getElementById("contactPopup");
+const successMsg = document.getElementById("successMsg");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const name = form.querySelector('[name="name"]').value;
+  const email = form.querySelector('[name="email"]').value;
+  const message = form.querySelector('[name="message"]').value;
+
+  const text =
+    `📩 *New Contact Message*\n\n` +
+    `👤 *Name:* ${name}\n` +
+    `📧 *Email:* ${email}\n` +
+    `💬 *Message:* ${message}`;
+
+  fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: CHAT_ID,
+      text: text,
+      parse_mode: "Markdown"
+    })
+  })
+  .then(() => {
+    successMsg.style.display = "block";
+    setTimeout(() => {
+      popup.style.display = "none";
+      successMsg.style.display = "none";
+      form.reset();
+    }, 2000);
+  })
+  .catch(() => alert("Message failed to send"));
+});
+</script>
 
             <!-- References / Social Links -->
             <section>
@@ -632,6 +783,7 @@
 
 </body>
 </html>
+
 
 
 

@@ -51,35 +51,37 @@
             body { print-color-adjust: exact; }
             .gradient-bg { -webkit-print-color-adjust: exact; }
         }
-        footer {
-            /* Glassy container */
-            .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            border-radius: 20px;
-            backdrop-filter: blur(12px);
-            background: rgba(255, 255, 255, 0.1); /* Transparent glass effect */
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-            margin: 30px auto;
-            width: fit-content;}
+       footer {
+  margin-top: 40px;
+}
 
-            /* Common button styles */
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            font-size: 26px;
-            text-decoration: none;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);}
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.social-links a {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 26px;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  transition: 0.3s;
+}
+
+.social-links a:hover {
+  transform: scale(1.15);
+}
 
             /* Hover effect (slight scale + glow) */
         .social-links a:hover {
@@ -635,65 +637,7 @@ function toggleContact() {
 
 document.getElementById("contactBtn").addEventListener("click", toggleContact);
 </script>
-
-<script>
-const TOKEN = "8544668628:AAF9hNMQG8u7hxx2T_EbXTz5n10y9ZkM8-8";
-const CHAT_ID = "1760551652";
-
-const form = document.getElementById("contactForm");
-const popup = document.getElementById("contactPopup");
-const successMsg = document.getElementById("successMsg");
-
-form.addEventListener("submit", async function (e) {
-  e.preventDefault();
-
-  // 🛡 Honeypot spam protection
-  if (document.getElementById("website").value !== "") return;
-
-  const name = form.querySelector('[name="name"]').value;
-  const email = form.querySelector('[name="email"]').value;
-  const message = form.querySelector('[name="message"]').value;
-
-  // 🌍 Get visitor IP & location
-  let ipInfo = {};
-  try {
-    const res = await fetch("https://ipapi.co/json/");
-    ipInfo = await res.json();
-  } catch (err) {
-    ipInfo = {};
-  }
-
-  const text =
-    `🚨 *New Website Message*\n\n` +
-    `👤 *Name:* ${name}\n` +
-    `📧 *Email:* ${email}\n` +
-    `💬 *Message:* ${message}\n\n` +
-    `🌍 *Country:* ${ipInfo.country_name || "Unknown"}\n` +
-    `🏙️ *City:* ${ipInfo.city || "Unknown"}\n` +
-    `📡 *IP:* ${ipInfo.ip || "Hidden"}\n` +
-    `🏢 *ISP:* ${ipInfo.org || "Unknown"}`;
-
-  fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: CHAT_ID,
-      text: text,
-      parse_mode: "Markdown"
-    })
-  })
-  .then(() => {
-    successMsg.style.display = "block";
-    setTimeout(() => {
-      popup.style.display = "none";
-      successMsg.style.display = "none";
-      form.reset();
-    }, 2000);
-  })
-  .catch(() => alert("Telegram message failed"));
-});
-</script>
-
+            
             <!-- References / Social Links -->
             <section>
                 <h2 class="text-2xl font-bold text-gray-800 section-title mb-4">REFERENCES</h2>
@@ -713,10 +657,15 @@ form.addEventListener("submit", async function (e) {
         </div>
 
         <!-- Footer -->
-        <div class="gradient-bg text-white text-center p-4">
-            <p class="text-sm text-blue-100">© 2025 — All Rights Reserved.<?php echo date('F Y'); ?> | Yasas Bandara</p>
-        </div>
-    </div>
+        <p class="text-sm text-blue-100">
+          © <span id="year"></span> — All Rights Reserved | Yasas Bandara
+       </p>
+    
+    <script>
+    document.getElementById("year").textContent =
+    new Date().toLocaleString("en-US", { month: "long", year: "numeric" });
+    </script>
+
 
     <audio id="jingle" loop>
     <source src="Carol Of The Bells  Christmas Music  Instrumental Version.mp3" type="audio/mpeg">
@@ -803,6 +752,7 @@ form.addEventListener("submit", async function (e) {
 
 </body>
 </html>
+
 
 
 
